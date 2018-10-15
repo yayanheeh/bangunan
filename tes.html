@@ -12,9 +12,9 @@
   <link rel="stylesheet" href="https://yayanheeh.github.io/bangunan/packages/core/css/framework7.min.css"/>
   <link rel="stylesheet" href="https://yayanheeh.github.io/bangunan/kitchen-sink/core/css/app.css"/>
 </head>
-<!--css--!>
+<!--css-->
 
-<!--content--!>
+<!--content-->
 <template>
   <div class="page">
     <div class="navbar">
@@ -25,188 +25,89 @@
             <span class="ios-only">Back</span>
           </a>
         </div>
-        <div class="title">Gauge</div>
+        <div class="title">Popup</div>
       </div>
     </div>
     <div class="page-content">
       <div class="block block-strong">
-        <p>Framework7 comes with Gauge component. It produces nice looking fully responsive SVG gauges.</p>
-      </div>
-      <div class="block block-strong text-align-center">
-        <div class="gauge demo-gauge"></div>
-        <p class="segmented segmented-raised">
-          <a href="#" class="button" @click="setGaugeValue(0)">0%</a>
-          <a href="#" class="button" @click="setGaugeValue(25)">25%</a>
-          <a href="#" class="button" @click="setGaugeValue(50)">50%</a>
-          <a href="#" class="button" @click="setGaugeValue(75)">75%</a>
-          <a href="#" class="button" @click="setGaugeValue(100)">100%</a>
+        <p>Popup is a modal window with any HTML content that pops up over App's main content. Popup as all other overlays is part of so called "Temporary Views".</p>
+        <p>
+          <a href="#" class="button button-raised popup-open" data-popup=".demo-popup">Open Popup</a>
+        </p>
+        <p>
+          <a href="#" class="button button-raised" @click="createPopup">Create Dynamic Popup</a>
         </p>
       </div>
-      <div class="block-title">Circle Gauges</div>
-      <div class="block block-strong">
-        <div class="row">
-          <div class="col text-align-center">
-            <div
-              class="gauge gauge-init"
-              data-type="circle"
-              data-value="0.44"
-              data-value-text="44%"
-              data-value-text-color="#ff9800"
-              data-border-color="#ff9800"
-            ></div>
-          </div>
-          <div class="col text-align-center">
-            <div
-              class="gauge gauge-init"
-              data-type="circle"
-              data-value="0.12"
-              data-value-text="$120"
-              data-value-text-color="#4caf50"
-              data-border-color="#4caf50"
-              data-label-text="of $1000 budget"
-              data-label-text-color="#f44336"
-              data-label-font-weight="700"
-            ></div>
+    </div>
+    <div class="popup demo-popup">
+      <div class="page">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="title">Popup Title</div>
+            <div class="right"><a href="#" class="link popup-close">Close</a></div>
           </div>
         </div>
-      </div>
-      <div class="block-title">Semicircle Gauges</div>
-      <div class="block block-strong">
-        <div class="row">
-          <div class="col text-align-center">
-            <div
-              class="gauge gauge-init"
-              data-type="semicircle"
-              data-value="0.3"
-              data-value-text="30%"
-              data-value-text-color="#f44336"
-              data-border-color="#f44336"
-            ></div>
-          </div>
-          <div class="col text-align-center">
-            <div
-              class="gauge gauge-init"
-              data-type="semicircle"
-              data-value="0.5"
-              data-value-text="30kg"
-              data-value-text-color="#e91e63"
-              data-border-color="#e91e63"
-              data-label-text="of 60kg total"
-              data-label-text-color="#333"
-            ></div>
-          </div>
-        </div>
-      </div>
-      <div class="block-title">Customization</div>
-      <div class="block block-strong">
-        <div class="row">
-          <div class="col text-align-center">
-            <div
-              class="gauge gauge-init"
-              data-type="circle"
-              data-value="0.35"
-              data-value-text="35%"
-              data-value-text-color="#4caf50"
-              data-value-font-size="51"
-              data-value-font-weight="700"
-              data-border-width="20"
-              data-border-color="#4caf50"
-              data-border-bg-color="#ffeb3b"
-              data-bg-color="#ffeb3b"
-            ></div>
-          </div>
-          <div class="col text-align-center">
-            <div
-              class="gauge gauge-init"
-              data-type="circle"
-              data-value="0.67"
-              data-value-text="$670"
-              data-value-text-color="#000"
-              data-border-color="#ff9800"
-              data-label-text="of $1000 spent"
-              data-label-text-color="#4caf50"
-              data-label-font-weight="800"
-              data-label-font-size="12"
-              data-border-width="30"
-            ></div>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col text-align-center">
-            <div
-              class="gauge gauge-init"
-              data-type="semicircle"
-              data-value="0.5"
-              data-value-text="50%"
-              data-value-text-color="#ffeb3b"
-              data-value-font-size="41"
-              data-value-font-weight="700"
-              data-border-width="10"
-              data-border-color="#ffeb3b"
-              data-border-bg-color="transparent"
-            ></div>
-          </div>
-          <div class="col text-align-center">
-            <div
-              class="gauge gauge-init"
-              data-type="semicircle"
-              data-value="0.77"
-              data-border-color="#ff9800"
-              data-label-text="$770 spent so far"
-              data-label-text-color="#ff9800"
-              data-label-font-weight="800"
-              data-label-font-size="12"
-              data-border-width="10"
-            ></div>
+        <div class="page-content">
+          <div class="block">
+            <p class="">Here comes popup. You can put here anything, even independent view with its own navigation. Also not, that by default popup looks a bit different on iPhone/iPod and iPad, on iPhone it is fullscreen.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse faucibus mauris leo, eu bibendum neque congue non. Ut leo mauris, eleifend eu commodo a, egestas ac urna. Maecenas in lacus faucibus, viverra ipsum pulvinar, molestie arcu. Etiam lacinia venenatis dignissim. Suspendisse non nisl semper tellus malesuada suscipit eu et eros. Nulla eu enim quis quam elementum vulputate. Mauris ornare consequat nunc viverra pellentesque. Aenean semper eu massa sit amet aliquam. Integer et neque sed libero mollis elementum at vitae ligula. Vestibulum pharetra sed libero sed porttitor. Suspendisse a faucibus lectus.</p>
+            <p>Duis ut mauris sollicitudin, venenatis nisi sed, luctus ligula. Phasellus blandit nisl ut lorem semper pharetra. Nullam tortor nibh, suscipit in consequat vel, feugiat sed quam. Nam risus libero, auctor vel tristique ac, malesuada ut ante. Sed molestie, est in eleifend sagittis, leo tortor ullamcorper erat, at vulputate eros sapien nec libero. Mauris dapibus laoreet nibh quis bibendum. Fusce dolor sem, suscipit in iaculis id, pharetra at urna. Pellentesque tempor congue massa quis faucibus. Vestibulum nunc eros, convallis blandit dui sit amet, gravida adipiscing libero.</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
-<script>
+
+              <div class="popup">
+                <div class="page">
+                  <div class="navbar">
+                    <div class="navbar-inner">
+                      <div class="title">Dynamic Popup</div>
+                      <div class="right"><a href="#" class="link popup-close">Close</a></div>
+                    </div>
+                  </div>
+                  <div class="page-content">
+                    <div class="block">
+                      <p>This popup was created dynamically</p>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse faucibus mauris leo, eu bibendum neque congue non. Ut leo mauris, eleifend eu commodo a, egestas ac urna. Maecenas in lacus faucibus, viverra ipsum pulvinar, molestie arcu. Etiam lacinia venenatis dignissim. Suspendisse non nisl semper tellus malesuada suscipit eu et eros. Nulla eu enim quis quam elementum vulputate. Mauris ornare consequat nunc viverra pellentesque. Aenean semper eu massa sit amet aliquam. Integer et neque sed libero mollis elementum at vitae ligula. Vestibulum pharetra sed libero sed porttitor. Suspendisse a faucibus lectus.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          <script>
   return {
     methods: {
-      setGaugeValue: function(value) {
+      createPopup: function () {
         var self = this;
-        self.demoGauge.update({
-          value: value / 100,
-          valueText: value + '%',
-        });
+        // Create popup
+        if (!self.popup) {
+          self.popup = self.$app.popup.create({
+            content: '\
+  '
+          });
+        }
+        // Open it
+        self.popup.open();
       },
     },
     on: {
-      pageInit: function (e, page) {
+      pageBeforeRemove: function () {
         var self = this;
-        var app = self.$app;
-        self.demoGauge = app.gauge.create({
-          el: '.demo-gauge',
-          type: 'circle',
-          value: 0.5,
-          size: 250,
-          borderColor: '#2196f3',
-          borderWidth: 10,
-          valueText: '50%',
-          valueFontSize: 41,
-          valueTextColor: '#2196f3',
-          labelText: 'amount of something',
-        });
-      },
-      pageBeforeRemove: function (e, page) {
-        if (this.demoGauge) this.demoGauge.destroy();
+        // Destroy popup when page removed
+        if (self.popup) self.popup.destroy();
       },
     }
   }
 </script>
 
-<!--content--!>
-<!--javascript--!>
+<!--content-->
+<!--javascript-->
 <script src="https://yayanheeh.github.io/bangunan/packages/core/js/framework7.min.js"></script>
   <script src="https://yayanheeh.github.io/bangunan/kitchen-sink/core/js/routes.js"></script>
   <script src="https://yayanheeh.github.io/bangunan/kitchen-sink/core/js/app.js"></script>
 
-<!--javascript--!>
+<!--javascript-->
 
 </html>
 
