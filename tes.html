@@ -15,83 +15,234 @@
 <!--css-->
 
 <!--content-->
-  <body>
-  ...
-    <div class="page-content">
-      <div class="block">
-        <!-- Open About Popup -->
-        <p><a class="link popup-open" href="#" data-popup=".popup-about">Open About Popup</a></p>
-        <!-- Open Services Popup -->
-        <p><a class="link popup-open" href="#" data-popup=".popup-services">Open Services Popup</a></p>
-        <p><a class="link dynamic-popup" href="#">Create Dynamic Popup</a></p>
-      </div>
-    </div>
-  ...
-  <div class="popup popup-about">
-    <div class="block">
-      <p>About</p>
-      <!-- Close Popup -->
-      <p><a class="link popup-close" href="#">Close popup</a></p>
-      <p>Lorem ipsum dolor sit amet...</p>
-    </div>
-  </div>
-  <div class="popup popup-services">
-    <div class="block">
-      <p>Services</p>
-      <!-- Close Popup -->
-      <p><a class="link popup-close" href="#">Close popup</a></p>
-      <p>Lorem ipsum dolor sit amet...</p>
-    </div>
-  </div>
-</body>
+ <div class="docs-content">
+<div class="improve-docs-link"><a href="https://github.com/framework7io/framework7-website/edit/master/src/pug/docs/page.pug" target="_blank">Improve this Doc</a></div>
+<h1>Page</h1>
+<ul class="docs-index"></ul>
+<p>Page is one of the main components (containers) used to display app content.</p>
+<h2>Page Layout</h2><pre><code class="html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>page<span class="token punctuation">"</span></span> <span class="token attr-name">data-name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>home<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>page-content<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    ... scrollable page content goes here ...
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre></code>
+<h3>Page Name</h3>
+<p>As you may note, each page has a <code>data-name</code> attribute with a unique page name. It's not required but can be useful within "page events" or "page callbacks". It can help us to define which page is loaded and available so you can make required manipulations to the page.</p>
+<h3>Page Content</h3>
+<p>All visual content (like list views, forms, etc.) should put inside of <code>&lt;div class="page-content"&gt;</code> which should be a child of <code>&lt;div class="page"&gt;</code>. It's required for correct styling, layout and scrolling.</p>
+<h2>Page Events</h2>
+<p>Now lets look at one of the most important parts of page navigation, "page events". <b>Page Events</b> allow us to manipulate just loaded pages by executing JavaScript for those specific pages:</p>
+<table class="events-table">
+<thead>
+<tr>
+<th>Event</th>
+<th>Target</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>page:mounted</td>
+<td>Page Element<span>&lt;div class="page"&gt;</span></td>
+<td>Event will be triggered when new page just inserted to DOM</td>
+</tr>
+<tr>
+<td>page:init</td>
+<td>Page Element<span>&lt;div class="page"&gt;</span></td>
+<td>Event will be triggered after Framework7 initialize required page's components and navbar</td>
+</tr>
+<tr>
+<td>page:reinit</td>
+<td>Page Element<span>&lt;div class="page"&gt;</span></td>
+<td>This event will be triggered in case of navigating to the page that was already initialized.</td>
+</tr>
+<tr>
+<td>page:beforein</td>
+<td>Page Element<span>&lt;div class="page"&gt;</span></td>
+<td>Event will be triggered when everything initialized and page is ready to be transitioned into view (into active/current position)</td>
+</tr>
+<tr>
+<td>page:afterin</td>
+<td>Page Element<span>&lt;div class="page"&gt;</span></td>
+<td>Event will be triggered after page transitioned into view</td>
+</tr>
+<tr>
+<td>page:beforeout</td>
+<td>Page Element<span>&lt;div class="page"&gt;</span></td>
+<td>Event will be triggered right before page is going to be transitioned out of view</td>
+</tr>
+<tr>
+ <td>page:afterout</td>
+<td>Page Element<span>&lt;div class="page"&gt;</span></td>
+<td>Event will be triggered after page transitioned out of view</td>
+</tr>
+<tr>
+<td>page:beforeremove</td>
+<td>Page Element<span>&lt;div class="page"&gt;</span></td>
+<td>Event will be triggered right before Page will be removed from DOM. This event could be very useful if you need to detach some events / destroy some plugins to free memory</td>
+</tr>
+</tbody>
+</table>
+<p>Lets see how we can use these events. There are two ways to add page event handlers:</p><pre><code class="js"><span class="token comment">// Option 1. Using one 'page:init' handler for all pages</span>
+<span class="token function">$$</span><span class="token punctuation">(</span>document<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'page:init'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Do something here when page loaded and initialized</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// Option 2. Using live 'page:init' event handlers for each page</span>
+<span class="token function">$$</span><span class="token punctuation">(</span>document<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'page:init'</span><span class="token punctuation">,</span> <span class="token string">'.page[data-name="about"]'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Do something here when page with data-name="about" attribute loaded and initialized</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></pre></code>
+<h2>Page Loading Sequence Classes</h2>
+<p>When a new page is loading and transitioned into the view (main visible part of the app) it has different classes on page element.</p>
+<p>When we load/open new page the following happens:</p>
+<ol>
+<li>Currently active page has <code><b>page-current</b></code> class.</li>
+<li>If page we load not in DOM (e.g. loaded via Ajax or using template or from component) it will be added to DOM.</li>
+<li>Page that we load/open will have additional <code><b>page-next</b></code> class set on its element.</li>
+<li>Router element (<code>&lt;div class="view"&gt;</code>) will have additional <code><b>router-transition-forward</b></code> class that does the following:
+<ul>
+<li>page with <code>page-next</code> (new page) class moves into the view</li>
+<li>page with <code>page-current</code> (current page) class moves out of the view</li>
+</ul>
+</li>
+<li>After transition completed, the new page that we loaded will have <code><b>page-current</b></code> class</li>
+<li>And the page that was previously active will have <code><b>page-previous</b></code> class</li>
+</ol>
+<p>When we load/open previous page (go back) the following happens:</p>
+<ol>
+<li>Currently active page has <code><b>page-current</b></code> class.</li>
+<li>If page we go back to not in DOM (e.g. loaded via Ajax or using template or from component) it will be added to DOM.</li>
+<li>Page that we go back to will have additional <code><b>page-previous</b></code> class set on its element.</li>
+<li>Router element (<code>&lt;div class="view"&gt;</code>) will have additional <code><b>router-transition-backward</b></code> class that does the following:
+<ul>
+<li>page with <code>page-previous</code> (page that we go back to) class moves into the view</li>
+<li>page with <code>page-current</code> (current page) class moves out of the view</li>
+</ul>
+</li>
+<li>After transition completed, the new page that we returned to will have <code><b>page-current</b></code> class</li>
+<li>And the page that was previously active will have <code><b>page-next</b></code> class. In case this page was added to DOM dynamically, it will be removed from DOM.</li>
+</ol>
+<h2>Page Data</h2>
+<p>As you may see it is pretty easy, but how do you determine which page is loaded when we use only one handler? For this case we have Page Data in the event details:</p><pre><code class="js"><span class="token comment">// In page events:</span>
+<span class="token function">$$</span><span class="token punctuation">(</span>document<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'page:init'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// Page Data contains all required information about loaded and initialized page</span>
+  <span class="token keyword">var</span> page <span class="token operator">=</span> e<span class="token punctuation">.</span>detail<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></pre></code>
+<p>Or in case the event handler was assigned using Dom7 like in example above then it will be passed in second argument:</p><pre><code class="js"><span class="token comment">// In page events:</span>
+<span class="token function">$$</span><span class="token punctuation">(</span>document<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'page:init'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>e<span class="token punctuation">,</span> page<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token built-in">console</span><span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span></pre></code>
+<p>Now, in the example above we have page data in <code><b>page</b></code> variable. It is an object with the following properties:</p>
+<table class="methods-table">
+<thead>
+<tr>
+<td colspan="3"></td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>page.app</td>
+<td><span class="parameter-type">object</span></td>
+<td>Initialized app instance</td>
+</tr>
+<tr>
+<td>page.view</td>
+<td><span class="parameter-type">object</span></td>
+<td>View instance that contains this page (if this View was initialized)</td>
+</tr>
+<tr>
+<td>page.router</td>
+<td><span class="parameter-type">object</span></td>
+<td>Router instance that contains this page (if this View was initialized). Same as <code>page.view.router</code></td>
+</tr>
+<tr>
+<td>page.app</td>
+<td><span class="parameter-type">string</span></td>
+<td>Initialized app instance</td>
+</tr>
+<tr>
+<td>page.name</td>
+<td><span class="parameter-type">string</span></td>
+<td>Value of page's <code>data-name</code> attribute</td>
+</tr>
+<tr>
+<td>page.el</td>
+<td><span class="parameter-type">HTMLElement</span></td>
+<td>Page element</td>
+</tr>
+<tr>
+<td>page.$el</td>
+<td><span class="parameter-type">object</span></td>
+<td>Dom7 instance with Page element</td>
+</tr>
+<tr>
+<td>page.navbarEl</td>
+<td><span class="parameter-type">HTMLElement</span></td>
+<td>Related navbar element for this page. Available only in iOS theme with dynamic navbar enabled.</td>
+</tr>
+<tr>
+<td>page.$navbarEl</td>
+<td><span class="parameter-type">object</span></td>
+<td>Dom7 instance with related navbar element for this page. Available only in iOS theme with dynamic navbar enabled.</td>
+</tr>
+<tr>
+<td>page.from</td>
+<td><span class="parameter-type">string</span></td>
+<td>Page position before transition or direction of where this Page comes from. It will be <code>next</code> if you load new page, <code>previous</code> - if you go back to this page, or <code>current</code> if this page replaces the currently active one.</td>
+</tr>
+<tr>
+<td>page.to</td>
+<td><span class="parameter-type">string</span></td>
+<td>New page position or where this page goes to. Can be same <code>next</code>, <code>previous</code> or <code>current</code></td>
+</tr>
+<tr>
+<td>page.position</td>
+<td><span class="parameter-type">string</span></td>
+<td>Alias for <code>page.from</code></td>
+</tr>
+<tr>
+<td>page.direction</td>
+<td><span class="parameter-type">string</span></td>
+<td>Direction of page transition (if applicable). Can be <code>forward</code> or <code>backward</code></td>
+</tr>
+<tr>
+<td>page.route</td>
+<td><span class="parameter-type">object</span></td>
+<td>Route associated with this page, object with current route data that was used to load this page. It has the following properties
+<ul>
+<li><code>url</code> - route URL</li>
+<li><code>path</code> - route path</li>
+<li><code>query</code> - object with route query. If the url is <code>/page/?id=5&foo=bar</code> then it will contain the following object <code>{id: '5', foo: 'bar'}</code></li>
+<li><code>params</code> - route params. If we have matching route with <code>/page/user/:userId/post/:postId/</code> path and url of the page is <code>/page/user/55/post/12/</code> then it will be the following object <code>{userId: '55', postId: '12'}</code></li>
+<li><code>name</code> - route name</li>
+<li><code>hash</code> - route URL hash</li>
+<li><code>route</code> - object with matching route from available routes</li>
+<li><code>context</code> - context that was passed to the route</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>page.pageFrom</td>
+<td><span class="parameter-type">object</span></td>
+<td>Page data of the page that was currently active before this new page.</td>
+</tr>
+<tr>
+ <td>page.context</td>
+<td><span class="parameter-type">object</span></td>
+<td>Template7 context that was passed for this page when using Template7 pages</td>
+</tr>
+</tbody>
+</table>
+<h2>Access To Page Data</h2>
+<p>If you don't use page events/callbacks and need to access to page data, it is possible via the <code>f7Page</code> property on its HTMLElement:</p><pre><code class="js"><span class="token keyword">var</span> $$ <span class="token operator">=</span> Dom7<span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> page <span class="token operator">=</span> <span class="token function">$$</span><span class="token punctuation">(</span><span class="token string">'.page[data-name="somepage"]'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>f7Page<span class="token punctuation">;</span>
+
+<span class="token comment">// do something with page data</span></pre></code>
+</div>
+</div>
+</main>
   <!-ss_>
-          <script>
-var app = new Framework7();
-
-var $$ = Dom7;
-
-// DOM events for About popup
-$$('.popup-about').on('popup:open', function (e, popup) {
-  console.log('About popup open');
-});
-$$('.popup-about').on('popup:opened', function (e, popup) {
-  console.log('About popup opened');
-});
-
-// Create dynamic Popup
-var dynamicPopup = app.popup.create({
-  content: '<div class="popup">'+
-              '<div class="block">'+
-                '<p>Popup created dynamically.</p>'+
-                '<p><a href="#" class="link popup-close">Close me</a></p>'+
-              '</div>'+
-            '</div>',
-  // Events
-  on: {
-    open: function (popup) {
-      console.log('Popup open');
-    },
-    opened: function (popup) {
-      console.log('Popup opened');
-    },
-  }
-});
-// Events also can be assigned on instance later
-dynamicPopup.on('close', function (popup) {
-  console.log('Popup close');
-});
-dynamicPopup.on('closed', function (popup) {
-  console.log('Popup closed');
-});
-
-// Open dynamic popup
-$$('.dynamic-popup').on('click', function () {
-  dynamicPopup.open();
-});
-</script>
-
-<!--content-->
-<!--javascript-->
+cript-->
 <script src="https://yayanheeh.github.io/bangunan/packages/core/js/framework7.min.js"></script>
   <script src="https://yayanheeh.github.io/bangunan/kitchen-sink/core/js/routes.js"></script>
   <script src="https://yayanheeh.github.io/bangunan/kitchen-sink/core/js/app.js"></script>
